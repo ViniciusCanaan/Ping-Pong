@@ -9,6 +9,10 @@ public class RaqueteController : MonoBehaviour
     private float meuY;
     public float velocidade = 5f;
     public float meuLimite = 3.4f;
+
+    //Verificando se sou o Player 1 
+    public bool Player1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,27 +29,54 @@ public class RaqueteController : MonoBehaviour
         //Modificar a posição da minha raquete
         transform.position = minhaPosicao;
 
+        //Velocidade multiplicada pelo deltatime
+        float deltaVelocidade = velocidade * Time.deltaTime;
 
         //Pegando a setinha para cima
         //SE eu apertar a setinha para cima ele vai subir a raquete
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            //Checar se meuY é menor que meu limite
-            if (meuY < meuLimite) {
-                //Aumentar o valor do meu Y 
-                meuY = meuY + velocidade * Time.deltaTime;
-            }
-           
+        //Controlando a raquete como o player 1
+        if (Player1) { 
+            if (Input.GetKey(KeyCode.UpArrow)){
+            
+            //Aumentar o valor do meu Y 
+            meuY = meuY + deltaVelocidade;
+                 
+             }
 
+            if (Input.GetKey(KeyCode.DownArrow)){
+        
+                meuY = meuY - deltaVelocidade;
+            
+             }
         }
-
-        if (Input.GetKey(KeyCode.DownArrow))
+        else
         {
-            if(meuY > -meuLimite)
+            //Subindo
+            if (Input.GetKey(KeyCode.W))
             {
-                meuY = meuY - velocidade * Time.deltaTime;
+                //Aumentar o valor do meu Y 
+                meuY = meuY + deltaVelocidade;
+             
+            }
+            //Descendo
+            if (Input.GetKey(KeyCode.S))
+            {
+               
+                meuY = meuY - deltaVelocidade;
+                
             }
            
         }
+        //Impedindo que eu saia por baixo da tela
+        if (meuY < -meuLimite)
+        {
+            meuY = -meuLimite;
+        }
+        //Impedindo que eu saia por cima da tela
+        if (meuY > meuLimite)
+        {
+            meuY = meuLimite;
+        }
+
     }
 }
