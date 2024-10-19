@@ -14,7 +14,36 @@ public class BolaController : MonoBehaviour
     void Start()
     {
         //Passando a velocidade para a minha velocidade
-        minhaVelocidade.x = -velocidade;
+        minhaVelocidade.x = velocidade;
+        minhaVelocidade.y = velocidade;
+
+        //Tentando gerar um valor aletório
+        int direcao = Random.Range(0, 4);
+
+        if (direcao == 0)
+        {
+            minhaVelocidade.x = velocidade;
+            minhaVelocidade.y = velocidade;
+        }
+        else if (direcao == 1)
+        {
+            minhaVelocidade.x = -velocidade;
+            minhaVelocidade.y = -velocidade;
+        }
+        else if (direcao == 2)
+        {
+            minhaVelocidade.x = velocidade;
+            minhaVelocidade.y = -velocidade;
+        }
+        else
+        {
+            minhaVelocidade.x = -velocidade;
+            minhaVelocidade.y = velocidade;
+        }
+            
+
+        Debug.Log(direcao);
+
         //Adicionando uma velocidade para a esquerda
         meuRB.velocity = minhaVelocidade;
 
