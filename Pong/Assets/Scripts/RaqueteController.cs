@@ -13,10 +13,16 @@ public class RaqueteController : MonoBehaviour
     //Verificando se sou o Player 1 
     public bool Player1;
 
+    //Variï¿½vel para checar se ele deve ser controlado pela inteligï¿½ncia artificial
+    public bool automatico = false;
+
+    //Pegando a posiï¿½ï¿½o da bola
+    public Transform transformBola;
+
     // Start is called before the first frame update
     void Start()
     {
-        //Pegando a posição inicial da raquete e aplicando a minha posição.
+        //Pegando a posiï¿½ï¿½o inicial da raquete e aplicando a minha posiï¿½ï¿½o.
         minhaPosicao.x = transform.position.x;
 
     }
@@ -26,47 +32,79 @@ public class RaqueteController : MonoBehaviour
     {
         //Passando o meuY para o eixo Y da minhaPosicao
         minhaPosicao.y = meuY;
-        //Modificar a posição da minha raquete
+        //Modificar a posiï¿½ï¿½o da minha raquete
         transform.position = minhaPosicao;
 
         //Velocidade multiplicada pelo deltatime
         float deltaVelocidade = velocidade * Time.deltaTime;
 
-        //Pegando a setinha para cima
-        //SE eu apertar a setinha para cima ele vai subir a raquete
-        //Controlando a raquete como o player 1
-        if (Player1) { 
-            if (Input.GetKey(KeyCode.UpArrow)){
-            
-            //Aumentar o valor do meu Y 
-            meuY = meuY + deltaVelocidade;
-                 
-             }
+        //Se o automï¿½tico Nï¿½O ï¿½ TRUE (ou seja ele ï¿½ FALSE)
+        if (!automatico)
+        {
 
-            if (Input.GetKey(KeyCode.DownArrow)){
-        
-                meuY = meuY - deltaVelocidade;
-            
-             }
+            //Pegando a setinha para cima
+            //SE eu apertar a setinha para cima ele vai subir a raquete
+            //Controlando a raquete como o player 1
+            if (Player1)
+            {
+                if (Input.GetKey(KeyCode.W))
+                {
+
+                    //Aumentar o valor do meu Y 
+                    meuY = meuY + deltaVelocidade;
+
+                }
+
+                if (Input.GetKey(KeyCode.S))
+                {
+
+                    meuY = meuY - deltaVelocidade;
+
+                }
+            }
+            else
+            {
+                //Meu cï¿½digo para colocar ele no automï¿½tico
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    automatico = true;
+                }
+
+                //Subindo
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    //Aumentar o valor do meu Y 
+                    meuY = meuY + deltaVelocidade;
+
+                }
+                //Descendo
+                if (Input.GetKey(KeyCode.DownArrow))
+                {
+
+                    meuY = meuY - deltaVelocidade;
+
+                }
+
+            }
+
         }
         else
         {
-            //Subindo
-            if (Input.GetKey(KeyCode.W))
+            //Tirando ele do automï¿½tico
+            //Checando se a setinha para cima ou setinha para baixo foi pressionada
+
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
             {
-                //Aumentar o valor do meu Y 
-                meuY = meuY + deltaVelocidade;
-             
+                automatico = false;
             }
-            //Descendo
-            if (Input.GetKey(KeyCode.S))
-            {
-               
-                meuY = meuY - deltaVelocidade;
-                
-            }
-           
+
+            //Se a raquete estï¿½ no automï¿½tico
+            //Para acessar funï¿½ï¿½es matemï¿½ticas, nï¿½s usamos a classe Mathf
+            meuY = Mathf.Lerp(meuY, transformBola.position.y, 0.02f);
+
+            //Se meu valor ï¿½ 0 e o da bola ï¿½ 10 a diferenï¿½a entre eles ï¿½ de 10, 10% de 10 ï¿½ 1
         }
+
         //Impedindo que eu saia por baixo da tela
         if (meuY < -meuLimite)
         {
@@ -77,6 +115,10 @@ public class RaqueteController : MonoBehaviour
         {
             meuY = meuLimite;
         }
+
+
+        //Checando o exio Y da bola
+        Debug.Log(transformBola.position.y);
 
     }
 }

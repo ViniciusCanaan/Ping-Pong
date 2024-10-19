@@ -447,6 +447,8 @@ MonoBehaviour:
   velocidade: 5
   meuLimite: 3.4
   Player1: 0
+  automatico: 1
+  transformBola: {fileID: 787707528}
 --- !u!212 &651783316
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -932,6 +934,8 @@ MonoBehaviour:
   velocidade: 5
   meuLimite: 3.4
   Player1: 1
+  automatico: 0
+  transformBola: {fileID: 787707528}
 --- !u!61 &2048960019
 BoxCollider2D:
   m_ObjectHideFlags: 0
