@@ -6,7 +6,7 @@ public class RaqueteController : MonoBehaviour
 {
     //Criando o meu vector 3
     private Vector3 minhaPosicao;
-    public float meuY;
+    private float meuY;
     public float velocidade = 5f;
     public float meuLimite = 3.4f;
     // Start is called before the first frame update
@@ -32,7 +32,7 @@ public class RaqueteController : MonoBehaviour
         {
             //Checar se meuY é menor que meu limite
             if (meuY < meuLimite) {
-                //Aumentar o valor do meu Y
+                //Aumentar o valor do meu Y 
                 meuY = meuY + velocidade * Time.deltaTime;
             }
            
