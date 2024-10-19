@@ -118,7 +118,7 @@ public class RaqueteController : MonoBehaviour
 
 
         //Checando o exio Y da bola
-        Debug.Log(transformBola.position.y);
+        //Debug.Log(transformBola.position.y);
 
     }
 }
